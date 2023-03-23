@@ -1,45 +1,47 @@
 package Filas;
 
-public class Fila {
-    private  No refNoEntradaFila;
+public class Fila<T> {
+    private  No<T> refNoEntradaFila;
 
     public Fila() {
         this.refNoEntradaFila = null;
     }
 
-    public void enqueue(No novoNo){
+    public void enqueue(T object){
+        No novoNo = new No(object);
         novoNo.setRefNo(refNoEntradaFila);
         refNoEntradaFila = novoNo;
     }
 
-    public No first(){
+    public T first(){
         if (!this.isEmpty()){
-            No primeirNo = refNoEntradaFila;
+            No primeiroNo = refNoEntradaFila;
             while (true){
-                 if (primeirNo.getRefNo()!=null){
-                     primeirNo = primeirNo.getRefNo();
+                 if (primeiroNo.getRefNo() != null){
+                     primeiroNo = primeiroNo.getRefNo();
                  }else {
                      break;
                  }
             }
+            return (T) primeiroNo.getObject();
         }
         return null;
     }
 
-    public No Dequeue(){
+    public T dequeue(){
         if (!this.isEmpty()){
-            No primeirNo = refNoEntradaFila;
+            No primeiroNo = refNoEntradaFila;
             No noAuxiliar = refNoEntradaFila;
             while (true){
-                 if (primeirNo.getRefNo()!=null){
-                     noAuxiliar = primeirNo;
-                     primeirNo = primeirNo.getRefNo();
+                 if (primeiroNo.getRefNo()!=null){
+                     noAuxiliar = primeiroNo;
+                     primeiroNo = primeiroNo.getRefNo();
                  }else {
                      noAuxiliar.setRefNo(null);
                      break;
                  }
             }
-            return primeirNo;
+            return (T) primeiroNo.getObject();
         }
         return null;
     }
